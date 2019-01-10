@@ -1,19 +1,35 @@
-import React, { Component } from 'react'
-import { View, Text } from 'react-native';
-
+import React, { Component } from "react";
+import { View, Text } from "react-native";
+import { handleFetchDecks, receiveDecks } from "../actions";
+import styled from "styled-components";
+import { connect } from "react-redux";
+import DeckCard from "./DeckCard";
 
 class DeckDashboard extends Component {
     componentDidMount() {
-        
+         this.props.dispatch(handleFetchDecks());
     }
-    render(){
+    render() {
+        const { decks } = this.props;
         return (
-            <View>
-                <Text>BloohbyBlahby</Text>
-            </View>
-        )
+          <View>
+              {decks !== undefined ? decks.map(deck => <DeckCard key={deck.title} deck={deck}/>)
+              :<Text>Goodbye</Text>}
+          </View>
+        );
     }
-
 }
 
-export default DeckDashboard
+const Container = styled(View)`
+    flex: 1;
+    padding: 20;
+    justify-content: center;
+`;
+
+function mapStateToProps(state) {
+    console.log(state)
+    return {
+        decks: [{}]
+    };
+}
+export default connect(mapStateToProps)(DeckDashboard);
