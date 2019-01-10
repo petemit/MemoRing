@@ -5,7 +5,7 @@ export const SINGLE_DECK_KEY = "SINGLE_DECK_KEY";
 let dummyCards = {
     deck1: {
         title: "deck1",
-        questions: [
+        cards: [
             {
                 question: "why?",
                 answer: "because"
@@ -18,7 +18,7 @@ let dummyCards = {
     },
     deck2: {
         title: "deck2",
-        questions: [
+        cards: [
             {
                 question: "I do?",
                 answer: "sometimes"
@@ -49,5 +49,6 @@ export function _addCard(newCard, deckId) {
 }
 
 export function _getDecks() {
-    return AsyncStorage.getItem(DECKS_KEY);
+    return AsyncStorage.getItem(DECKS_KEY)
+    .then(result => JSON.parse(result))
 }

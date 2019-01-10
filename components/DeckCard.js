@@ -1,14 +1,36 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React from "react";
+import { View, Text } from "react-native";
+import  styled  from "styled-components";
+import { Component } from "react";
+import { offWhite, primary } from './../utils/colors';
 
-const DeckCard = props => {
-    return (
-        <View>
-            <Text>{props.deck.title}</Text>
-        </View>
-    )
+class DeckCard extends Component {
+    render() {
+        return (
+            <DeckStyle key={this.props.deck.title}>
+                <BigText>{this.props.deck.title}</BigText>
+                <MediumText>cards: {this.props.deck.cards.length}</MediumText>
+            </DeckStyle>
+        );
+    }
 }
 
-export default DeckCard
+const DeckStyle = styled.View`
+    flex: 1;
+    width: 100%;
+    align-items: center;
+
+
+    background-color: ${primary}
+`;
+
+const BigText = styled.Text`
+    font-size: 22;
+`
+const MediumText = styled.Text`
+    font-size: 19;
+`
+
+export default DeckCard;
 
 //  /* <Text>{props.deck.cards.length}</Text> */

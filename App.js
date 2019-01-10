@@ -22,9 +22,9 @@ const AppContainer = createAppContainer(MainNavigator);
 
 export default class App extends React.Component {
   componentDidMount() {
-    initDummyData()
+
   }
-  render() {
+  render() {1
     return (
       <Provider store={createStore(reducer, middleware)}>
       <MemoRingStatusBar backgroundColor={primary_dark} barStyle='light-content'/>
