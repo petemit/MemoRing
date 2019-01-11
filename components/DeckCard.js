@@ -2,33 +2,38 @@ import React from "react";
 import { View, Text } from "react-native";
 import  styled  from "styled-components";
 import { Component } from "react";
-import { offWhite, primary } from './../utils/colors';
+import { offWhite, primary, black, offBlack } from './../utils/colors';
 
 class DeckCard extends Component {
     render() {
+        const {deck} = this.props
         return (
-            <DeckStyle key={this.props.deck.title}>
-                <BigText>{this.props.deck.title}</BigText>
-                <MediumText>cards: {this.props.deck.cards.length}</MediumText>
+            <DeckStyle key={deck.title}>
+                <BigText>{deck.title}</BigText>
+                <MediumText>cards: {deck.cards.length}</MediumText>
             </DeckStyle>
         );
     }
 }
 
 const DeckStyle = styled.View`
-    flex: 1;
+    padding: 16px;
     width: 100%;
+    height: 200px;
+    justify-content: center;
+    border: 1px solid ${offBlack};
     align-items: center;
 
 
-    background-color: ${primary}
+    background-color: ${offWhite}
 `;
 
 const BigText = styled.Text`
-    font-size: 22;
+    font-size: 30;
 `
 const MediumText = styled.Text`
     font-size: 19;
+    color: ${offBlack};
 `
 
 export default DeckCard;

@@ -3,8 +3,8 @@ export const DECKS_KEY = "DECKS_KEY";
 export const SINGLE_DECK_KEY = "SINGLE_DECK_KEY";
 
 let dummyCards = {
-    deck1: {
-        title: "deck1",
+    myDeck1: {
+        title: "myDeck1",
         cards: [
             {
                 question: "why?",
@@ -16,8 +16,8 @@ let dummyCards = {
             }
         ]
     },
-    deck2: {
-        title: "deck2",
+    myDeck2: {
+        title: "myDeck2",
         cards: [
             {
                 question: "I do?",
@@ -28,12 +28,91 @@ let dummyCards = {
                 answer: "always!"
             }
         ]
-    }
+    },
+    myDeck3: {
+        title: "myDeck3",
+        cards: [
+            {
+                question: "why?",
+                answer: "because"
+            },
+            {
+                question: "why not?",
+                answer: "because of that!"
+            }
+        ]
+    },
+    myDeck4: {
+        title: "myDeck4",
+        cards: [
+            {
+                question: "I do?",
+                answer: "sometimes"
+            },
+            {
+                question: "I don't?",
+                answer: "always!"
+            }
+        ]
+    },
+    myDeck5: {
+        title: "myDeck5",
+        cards: [
+            {
+                question: "why?",
+                answer: "because"
+            },
+            {
+                question: "why not?",
+                answer: "because of that!"
+            }
+        ]
+    },
+    myDeck6: {
+        title: "myDeck6",
+        cards: [
+            {
+                question: "I do?",
+                answer: "sometimes"
+            },
+            {
+                question: "I don't?",
+                answer: "always!"
+            }
+        ]
+    },
+    myDeck7: {
+        title: "myDeck7",
+        cards: [
+            {
+                question: "why?",
+                answer: "because"
+            },
+            {
+                question: "why not?",
+                answer: "because of that!"
+            }
+        ]
+    },
+    myDeck8: {
+        title: "myDeck8",
+        cards: [
+            {
+                question: "I do?",
+                answer: "sometimes"
+            },
+            {
+                question: "I don't?",
+                answer: "always!"
+            }
+        ]
+    },
+    
 };
 
 export function _initDummyData() {
-    _addDeck(dummyCards.deck1, dummyCards.deck1.title)
-    _addDeck(dummyCards.deck2, dummyCards.deck2.title)
+    Object.values(dummyCards).map(deck => _addDeck(deck, deck.title))
+    
 }
 
 export function _addDeck(newDeck, key) {
