@@ -9,30 +9,11 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { initDummyData } from './utils/api';
 import middleware from './middleware';
+import Deck from './components/Deck';
+import { TouchableOpacity } from 'react-native';
+import styled  from 'styled-components';
+import AddDeck from './components/AddDeck';
 
-
-
-const MainNavigator = createStackNavigator({
-  Home: {
-      screen: DeckDashboard,
-  },
-})
-
-const AppContainer = createAppContainer(MainNavigator);
-
-export default class App extends React.Component {
-  componentDidMount() {
-
-  }
-  render() {1
-    return (
-      <Provider store={createStore(reducer, middleware)}>
-      <MemoRingStatusBar backgroundColor={primary_dark} barStyle='light-content'/>
-      <AppContainer/>
-      </Provider>
-    );
-  }
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -42,3 +23,51 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+const MainNavigator = createStackNavigator({
+  Home: {
+      screen: DeckDashboard,
+      navigationOptions: {
+        headerStyle: {
+          backgroundColor: primary,
+        },
+      }  
+  },
+  Deck: {
+    screen: Deck,
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: primary,
+      },
+    }
+  },
+  AddDeck: {
+    screen: AddDeck,
+    navigationOptions: {
+      title: "Add New Deck",
+      headerStyle: {
+        backgroundColor: primary,
+      },
+    }
+  }
+
+})
+
+const AppContainer = createAppContainer(MainNavigator);
+
+export default class App extends React.Component {
+  
+  componentDidMount() {
+
+  }
+  render() {
+    return (
+      <Provider store={createStore(reducer, middleware)}>
+      <MemoRingStatusBar backgroundColor={primary_dark} barStyle='light-content'/>
+      <AppContainer/>
+      </Provider>
+    );
+  }
+}
+
+

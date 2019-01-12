@@ -4,9 +4,8 @@ import  styled  from "styled-components";
 import { Component } from "react";
 import { offWhite, primary, black, offBlack } from './../utils/colors';
 
-class DeckCard extends Component {
-    render() {
-        const {deck} = this.props
+const DeckCard = (props) => {
+        const {deck} = props
         return (
             <DeckStyle key={deck.title}>
                 <BigText>{deck.title}</BigText>
@@ -14,7 +13,7 @@ class DeckCard extends Component {
             </DeckStyle>
         );
     }
-}
+
 
 const DeckStyle = styled.View`
     padding: 16px;
