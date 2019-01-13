@@ -1,5 +1,4 @@
-import { fetchDecks } from "../utils/api";
-
+import { fetchDecks, addDeck as addDeckApi } from "../utils/api";
 export const RECEIVE_DECKS = "RECEIVE_DECKS"
 export const ADD_DECK = "ADD_DECK"
 export const REMOVE_DECK = "REMOVE_DECK"
@@ -35,7 +34,12 @@ function addQuestion(deck)  {
 //TODO need to remove deck if call fails.  Also need to update db.  
 export function handleAddDeck(deckTitle) {
     return (dispatch, getState) => {
-        dispatch(addDeck(deck))
+        dispatch(addDeck(deckTitle))
+        return addDeckApi(deckTitle).catch(e => {
+            dispatch(removeDeck(deckTitle));
+            console.warn("Error in adding deck")
+            alert('There was an issue, please try again')
+        })
     }
 }
 

@@ -10,7 +10,10 @@ function decks(state = {}, action) {
         case ADD_DECK : 
         return {
             ...state,
-            ...action.deck
+            [action.deck] : {
+                title: action.deck,
+                cards: []
+            }
         }
         case REMOVE_DECK : 
         return state.filter(deck => action.deck !== deck)

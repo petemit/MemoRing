@@ -121,6 +121,15 @@ export function _addDeck(newDeck, key) {
     }))
 }
 
+export function _createDeck(newDeck) {
+    return AsyncStorage.mergeItem(DECKS_KEY, JSON.stringify({
+        [newDeck]: {
+            title: newDeck,
+            cards: [], 
+        },
+    }))
+}
+
 export function _addCard(newCard, deckId) {
     return AsyncStorage.mergeItem(SINGLE_DECK_KEY, JSON.stringify({
         [deckId]: newCard

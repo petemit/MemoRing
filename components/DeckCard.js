@@ -9,7 +9,7 @@ const DeckCard = (props) => {
         return (
             <DeckStyle key={deck.title}>
                 <BigText>{deck.title}</BigText>
-                <MediumText>cards: {deck.cards.length}</MediumText>
+                <MediumText>cards: {deck.cards === undefined ? 0 :deck.cards.length}</MediumText>
             </DeckStyle>
         );
     }
