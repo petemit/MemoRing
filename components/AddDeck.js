@@ -4,7 +4,7 @@ import InputWithTitle from "./InputWithTitle";
 import { Header } from "react-navigation";
 import { Component } from "react";
 import TextButton from "./TextButton";
-import { primary, offWhite } from "./../utils/colors";
+import { offWhite } from "./../utils/colors";
 import { connect } from "react-redux";
 
 import { handleAddDeck } from "../actions";

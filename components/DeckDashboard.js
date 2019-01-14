@@ -59,7 +59,7 @@ class DeckDashboard extends Component {
                             <TouchableOpacity
                                 onPress={() =>
                                     this.props.navigation.navigate("Deck", {
-                                        deckId: data.item.title
+                                        deck: data.item
                                     })
                                 }
                             >
