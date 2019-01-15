@@ -50,10 +50,11 @@ export function handleAddDeck(deckTitle) {
 * and project was any more complicated I would break up the state
 * and add a key.
 */
-export function handleAddQuestion(question) {
+export function handleAddQuestion(deck, question) {
     return (dispatch, getState) => {
-        dispatch(addQuestion(question))
-        return addCard(question)
+        return addCard(deck, question).then(
+            dispatch(addQuestion(deck, question))
+        )
     }
 }
 

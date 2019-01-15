@@ -10,8 +10,8 @@ export function addDeck(newDeck) {
     return _createDeck(newDeck)
 }
 
-export function addCard(newCard, deckId) {
-    return _addCard(newCard, deckId)
+export function addCard(deckId, newCard) {
+    return _addCard(deckId, newCard)
 }
 
 export function initDummyData() {

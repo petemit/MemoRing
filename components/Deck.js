@@ -4,15 +4,16 @@ import styled from 'styled-components'
 import { offBlack } from '../utils/colors';
 import DeckCard from './DeckCard';
 import TextButton from './TextButton';
+import { connect } from 'react-redux';
 
 class Deck extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
-          title: (navigation.getParam('deck', {})).title,
+          title: (navigation.getParam('deckKey', {})),
           headerRight: (
             <TextButton
                 onPress={() => navigation.navigate("AddCard", {
-                    deck: (navigation.getParam('deck', {})).title,
+                    deckKey: (navigation.getParam('deckKey', {})),
                 })}
                 input = "Add New Card"
                 style = {{padding: 20, marginRight: 5, height: 40}}
@@ -23,7 +24,7 @@ class Deck extends Component {
         };
       };
     render() {
-        const deck = this.props.navigation.getParam('deck')
+        const deck = this.props.decks[this.props.navigation.getParam('deckKey')]
         return (
             <Container>
             <DeckCard borderOn={false} deck={deck}/>
@@ -46,4 +47,9 @@ const MediumText = styled.Text`
     color: ${offBlack};
 `
 
-export default Deck
+function mapStateToProps (state) {
+    return {
+        decks: state
+    }
+}
+export default connect(mapStateToProps)(Deck)

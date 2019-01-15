@@ -9,13 +9,13 @@ import TextButton from './TextButton';
 import { offWhite } from '../utils/colors';
 class AddCard extends Component {
     state = {
-        cardQuestion: "Question",
-        cardAnswer: "Answer"
+        question: "Question",
+        answer: "Answer"
     };
 
     render() {
-        const { cardAnswer, cardQuestion } = this.props
-        const deck = this.props.navigation.getParam('deck')
+        const { answer: cardAnswer, question: cardQuestion } = this.state
+        const deck = this.props.navigation.getParam('deckKey')
         const warningText = "Your question and answer must not be empty";
         const emptyCheck = cardAnswer != "" && cardQuestion != ""
 
@@ -47,7 +47,7 @@ class AddCard extends Component {
                     input="CREATE"
                     enabled={emptyCheck}
                     onPress={() => {
-                         this.props.handleAddQuestion(deck, {cardQuestion, cardAnswer})
+                         this.props.handleAddQuestion(deck, {"question": cardQuestion, "answer": cardAnswer})
                          this.props.navigation.goBack();}
                     }
                     style={{

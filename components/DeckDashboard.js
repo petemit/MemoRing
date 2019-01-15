@@ -54,12 +54,14 @@ class DeckDashboard extends Component {
             <Container>
                 {this.props.state !== undefined ? (
                     <FlatList
-                        data={Object.values(this.props.state)}
+                        data={Object.values(this.props.state).sort((a,b) => {
+                            return a.title.localeCompare(b.title)
+                        })}
                         renderItem={data => (
                             <TouchableOpacity
                                 onPress={() =>
                                     this.props.navigation.navigate("Deck", {
-                                        deck: data.item
+                                        deckKey: data.item.title
                                     })
                                 }
                             >
