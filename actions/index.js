@@ -1,4 +1,4 @@
-import { fetchDecks, addDeck as addDeckApi } from "../utils/api";
+import { fetchDecks, addDeck as addDeckApi, addCard } from "../utils/api";
 export const RECEIVE_DECKS = "RECEIVE_DECKS"
 export const ADD_DECK = "ADD_DECK"
 export const REMOVE_DECK = "REMOVE_DECK"
@@ -25,13 +25,14 @@ function removeDeck(deck)  {
     }
 }
 
-function addQuestion(deck)  {
+function addQuestion(deck, question)  {
     return {
         type: ADD_QUESTION,
+        question,
         deck
     }
 }
-//TODO need to remove deck if call fails.  Also need to update db.  
+
 export function handleAddDeck(deckTitle) {
     return (dispatch, getState) => {
         dispatch(addDeck(deckTitle))
@@ -42,6 +43,20 @@ export function handleAddDeck(deckTitle) {
         })
     }
 }
+
+/*
+* I'm opting to not include a catch for adding a question since
+* I would have to add a key for each question.  If the state
+* and project was any more complicated I would break up the state
+* and add a key.
+*/
+export function handleAddQuestion(question) {
+    return (dispatch, getState) => {
+        dispatch(addQuestion(question))
+        return addCard(question)
+    }
+}
+
 
 export function handleFetchDecks() {
     return dispatch => {
