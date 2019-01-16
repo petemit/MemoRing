@@ -14,6 +14,7 @@ import { TouchableOpacity } from 'react-native';
 import styled  from 'styled-components';
 import AddDeck from './components/AddDeck';
 import AddCard from './components/AddCard';
+import Quiz from './components/Quiz';
 
 
 const styles = StyleSheet.create({
@@ -55,6 +56,14 @@ const MainNavigator = createStackNavigator({
     screen: AddCard,
     navigationOptions: {
       title: "Add New Card",
+      headerStyle: {
+        backgroundColor: primary,
+      },
+    }
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
       headerStyle: {
         backgroundColor: primary,
       },
