@@ -26,7 +26,8 @@ class AddDeck extends Component {
                 style={{
                     flex: 1,
                     alignItems: "center",
-                    justifyContent: "center"
+                    justifyContent: "center",
+                    marginBottom: 120
                 }}
             >
                 {!uniqueCheck && (
@@ -50,8 +51,9 @@ class AddDeck extends Component {
                         maxHeight: 20,
                         backgroundColor: offWhite
                     }}
-                />
+                />    
             </KeyboardAvoidingView>
+                    
         );
     }
 }

@@ -9,15 +9,15 @@ import TextButton from './TextButton';
 import { offWhite } from '../utils/colors';
 class AddCard extends Component {
     state = {
-        question: "Question",
-        answer: "Answer"
+        question: "",
+        answer: ""
     };
 
     render() {
-        const { answer: cardAnswer, question: cardQuestion } = this.state
+        const { answer, question } = this.state
         const deck = this.props.navigation.getParam('deckKey')
         const warningText = "Your question and answer must not be empty";
-        const emptyCheck = cardAnswer != "" && cardQuestion != ""
+        const emptyCheck = answer != "" && question != ""
 
         return (
             <KeyboardAvoidingView
@@ -26,7 +26,8 @@ class AddCard extends Component {
                 style={{
                     flex: 1,
                     alignItems: "center",
-                    justifyContent: "center"
+                    justifyContent: "center",
+                    marginBottom: 120
                 }}
             >
                 {!emptyCheck && (
@@ -34,20 +35,20 @@ class AddCard extends Component {
                 )}
                 <InputWithTitle
                     title="Question"
-                    onChangeText={cardQuestion => this.setState({ cardQuestion })}
-                    value={cardQuestion}
+                    onChangeText={input => this.setState({ question: input })}
+                    value={question}
                 />
 
                 <InputWithTitle
                     title="Answer"
-                    onChangeText={cardAnswer => this.setState({ cardAnswer })}
-                    value={cardAnswer}
+                    onChangeText={input => this.setState({ answer: input })}
+                    value={answer}
                 />
                 <TextButton
                     input="CREATE"
                     enabled={emptyCheck}
                     onPress={() => {
-                         this.props.handleAddQuestion(deck, {"question": cardQuestion, "answer": cardAnswer})
+                         this.props.handleAddQuestion(deck, {"question": question, "answer": answer})
                          this.props.navigation.goBack();}
                     }
                     style={{

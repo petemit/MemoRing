@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import {
     View,
-    Text,
     FlatList,
-    List,
-    ListItem,
     TouchableOpacity,
     StyleSheet
 } from "react-native";
@@ -31,7 +28,7 @@ class DeckDashboard extends Component {
             headerRight: (
                 <TextButton
                     onPress={() => navigation.navigate("AddDeck")}
-                    input = "Add New Deck"
+                    input = "ADD NEW DECK"
                     style = {{padding: 20, marginRight: 5, height: 40}}
                 />
                     
@@ -52,7 +49,7 @@ class DeckDashboard extends Component {
     render() {
         return (
             <Container>
-                {this.props.state !== undefined ? (
+                {this.props.state !== undefined && Object.values(this.props.state).length > 0 ? (
                     <FlatList
                         data={Object.values(this.props.state).sort((a,b) => {
                             return a.title.localeCompare(b.title)
@@ -71,12 +68,23 @@ class DeckDashboard extends Component {
                         keyExtractor={(deck, index) => deck.title}
                     />
                 ) : (
-                    <Text>Goodbye</Text>
+                    <View>
+                    <MediumText>No Decks Created... Tap the Add New Deck button!</MediumText> 
+                    <MediumText> </MediumText>
+                    </View>
                 )}
             </Container>
         );
     }
 }
+
+const MediumText = styled.Text`
+    font-size: 19;
+    align-self: center;
+    text-align: center;
+    width: 300px;
+    margin-top: 100px;
+`
 
 const Container = styled.View`
     flex: 1;

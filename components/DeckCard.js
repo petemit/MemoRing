@@ -1,22 +1,10 @@
 import React from "react";
-import { View, Text } from "react-native";
 import styled from "styled-components";
-import { Component } from "react";
 import { offWhite, primary, black, offBlack } from "./../utils/colors";
 
 const DeckCard = props => {
-    const { deck, borderOn = true } = props;
+    const { deck } = props;
     return (
-        //I obviously am not very good with styled components yet... 
-        borderOn ? <Border>
-            <DeckStyle key={deck.title}>
-                <BigText>{deck.title}</BigText>
-                <MediumText>
-                    cards: {deck.cards === undefined ? 0 : deck.cards.length}
-                </MediumText>
-            </DeckStyle>
-        </Border>
-        : 
         <DeckStyle key={deck.title}>
             <BigText>{deck.title}</BigText>
             <MediumText>
@@ -26,15 +14,12 @@ const DeckCard = props => {
     );
 };
 
-const Border = styled.View`
-    border: 1px solid ${offBlack};
-`;
 const DeckStyle = styled.View`
     padding: 16px;
     width: 100%;
     height: 200px;
     justify-content: center;
-
+    border: 1px solid ${offBlack};
     align-items: center;
 
     background-color: ${offWhite};

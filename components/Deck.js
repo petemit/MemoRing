@@ -15,7 +15,7 @@ class Deck extends Component {
                 onPress={() => navigation.navigate("AddCard", {
                     deckKey: (navigation.getParam('deckKey', {})),
                 })}
-                input = "Add New Card"
+                input = "ADD NEW CARD"
                 style = {{padding: 20, marginRight: 5, height: 40}}
             />
                 
@@ -28,8 +28,8 @@ class Deck extends Component {
         const emptyCheck = deck.cards.length > 0
         return (
             <Container>
-            <DeckCard borderOn={false} deck={deck}/>
-            <TextButton
+            <DeckCard deck={deck}/>
+            {emptyCheck ? <TextButton
                     input="TAKE QUIZ"
                     enabled={emptyCheck}
                     onPress={() => {
@@ -38,11 +38,14 @@ class Deck extends Component {
                          });}
                     }
                     style={{
+                        marginTop: 10,
                         padding: 20,
                         maxHeight: 20,
+                        maxWidth: 150,
+                        alignSelf: "center",
                         backgroundColor: offWhite
                     }}
-                />
+                />:<MediumText>No Cards Yet... Tap Add New Card!</MediumText>}
             </Container>
         )
     }
@@ -50,7 +53,9 @@ class Deck extends Component {
 }
 
 const Container = styled.View`
-    align-items: center;
+    flex:1;
+    padding-left: 20px;
+    padding-right: 20px;
     padding-top: 100px;
 `
 
@@ -59,6 +64,7 @@ const BigText = styled.Text`
 `
 const MediumText = styled.Text`
     font-size: 19;
+    text-align: center;
     color: ${offBlack};
 `
 

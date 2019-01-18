@@ -111,7 +111,7 @@ let dummyCards = {
 };
 
 export function _initDummyData() {
-    Object.values(dummyCards).map(deck => _addDeck(deck, deck.title))
+  //  Object.values(dummyCards).map(deck => _addDeck(deck, deck.title))
     
 }
 

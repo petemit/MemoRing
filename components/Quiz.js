@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { View } from "react-native";
 import { connect } from "react-redux";
 import styled from "styled-components/native";
-import { offBlack, offWhite } from "../utils/colors";
-import { Text } from "react-native";
+import { offBlack, offWhite, black } from "../utils/colors";
+import { Text, StyleSheet } from "react-native";
 import TextButton from "./TextButton";
 
 const ANSWER_VIEW = "ANSWER_VIEW";
@@ -76,8 +76,8 @@ class Quiz extends Component {
         const deck = decks[deckKey];
         const numberOfQuestions = deck.cards.length;
         const viewTypeToggleText = {
-            ANSWER_VIEW: "Show Question",
-            QUESTION_VIEW: "Show Answer",
+            ANSWER_VIEW: "SHOW QUESTION",
+            QUESTION_VIEW: "SHOW ANSWER",
             SUMMARY_VIEW: ""
         }[viewType];
 
@@ -93,60 +93,115 @@ class Quiz extends Component {
                         }[viewType]
                     }
                 </BigText>
-                {(viewType === QUESTION_VIEW ||
-                    viewType === ANSWER_VIEW) && (
-                        <TextButton
-                            input={viewTypeToggleText}
-                            onPress={this.changeViewType}
-                            style={{
-                                padding: 20,
-                                maxHeight: 20,
-                                backgroundColor: offWhite
-                            }}
-                        />
-                    )}
-                {(viewType === QUESTION_VIEW ||
-                    viewType === ANSWER_VIEW) && (
-                        <ButtonRow>
-                            <TextButton
-                                input="Correct"
-                                onPress={() => {
-                                    this.questionCounter(
-                                        true,
-                                        numberOfQuestions
-                                    );
-                                }}
-                                style={{
-                                    padding: 20,
-                                    maxHeight: 20,
-                                    maxWidth: 120,
-                                    textAlign: "center",
-                                    backgroundColor: offWhite
-                                }}
-                            />
 
-                            <TextButton
-                                input="Incorrect"
-                                onPress={() => {
-                                    this.questionCounter(
-                                        false,
-                                        numberOfQuestions
-                                    );
-                                }}
-                                style={{
-                                    padding: 20,
-                                    maxHeight: 20,
-                                    maxWidth: 120,
-                                    textAlign: "center",
-                                    backgroundColor: offWhite
-                                }}
-                            />
-                        </ButtonRow>
-                    )}
+                {/* Quiz Card */}
+                {
+                    {
+                        ANSWER_VIEW: (
+                            <Card>
+                                <MediumText>
+                                    {deck.cards[placeInQuiz] !== undefined &&
+                                        deck.cards[placeInQuiz].answer}
+                                </MediumText>
+                            </Card>
+                        ),
+                        QUESTION_VIEW: (
+                            <Card>
+                                <MediumText>
+                                    {deck.cards[placeInQuiz] !== undefined &&
+                                        deck.cards[placeInQuiz].question}
+                                </MediumText>
+                            </Card>
+                        ),
+                        SUMMARY_VIEW: <Card>
+                        <MediumText style={{textAlign: "center", fontSize: 22}}>
+                                Your Score: {((correctAnswers/deck.cards.length) * 100).toFixed(2)}%
+                            </MediumText>
+                            <MediumText style={{textAlign: "center", fontSize: 22}}>
+                                You got {correctAnswers} out of {deck.cards.length} correct!
+                            </MediumText>
+                        </Card>
+                    }[viewType]
+                }
+
+                {/* View Switcher */}
+                {(viewType === QUESTION_VIEW || viewType === ANSWER_VIEW) && (
+                    <TextButton
+                        input={viewTypeToggleText}
+                        onPress={this.changeViewType}
+                        style={{
+                            padding: 20,
+                            maxHeight: 20,
+                            marginTop: 10,
+                            marginBottom: 10,
+                            elevation: 3
+                        }}
+                    />
+                )}
+
+                {/* Button Row */}
+                {viewType === QUESTION_VIEW || viewType === ANSWER_VIEW ? (
+                    <ButtonRow>
+                        <TextButton
+                            input="CORRECT"
+                            onPress={() => {
+                                this.questionCounter(true, numberOfQuestions);
+                            }}
+                            style={styles.buttonRowStyle}
+                        />
+
+                        <TextButton
+                            input="INCORRECT"
+                            onPress={() => {
+                                this.questionCounter(false, numberOfQuestions);
+                            }}
+                            style={styles.buttonRowStyle}
+                        />
+                    </ButtonRow>
+                ) : (
+                    <ButtonRow>
+                        <TextButton
+                            input="RESTART"
+                            onPress={() => {
+                                this.setState({
+                                    correctAnswers: 0,
+                                    placeInQuiz: 0,
+                                    viewType: QUESTION_VIEW
+                                });
+                            }}
+                            style={styles.buttonRowStyle}
+                        />
+                        <TextButton
+                            input="FINISH"
+                            onPress={() => {
+                                navigation.goBack();
+                            }}
+                            style={styles.buttonRowStyle}
+                        />
+                    </ButtonRow>
+                )}
             </Container>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    buttonRowStyle: {
+        marginTop: 10,
+        padding: 20,
+        maxHeight: 20,
+        maxWidth: 150,
+        backgroundColor: offWhite
+    }
+});
+
+const Card = styled.View`
+    flex: 1;
+    width: 100%;
+    padding: 20px;
+    background-color: ${offWhite};
+    border-radius: 10px;
+`;
 
 const Container = styled.View`
     flex: 1;
@@ -166,7 +221,7 @@ const BigText = styled.Text`
 `;
 const MediumText = styled.Text`
     font-size: 19;
-    color: ${offBlack};
+    color: ${black};
 `;
 
 function mapStateToProps(state) {
