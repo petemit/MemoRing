@@ -28,10 +28,11 @@ export function setReminderNotification() {
                             tomorrow.setMinutes(0);
 
                             Notifications.scheduleLocalNotificationAsync(
-                                createNotification({
-                                    time: tomorrow,
+                                createNotification(),
+                                {
+                                    tomorrow,
                                     repeat: "day"
-                                })
+                                }
                             );
                             AsyncStorage.setItem(
                                 NOTIFICATION_KEY,
