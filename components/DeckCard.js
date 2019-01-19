@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { offWhite, primary, black, offBlack } from "./../utils/colors";
+import { offWhite, offBlack } from "./../utils/colors";
 
 const DeckCard = props => {
     const { deck } = props;

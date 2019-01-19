@@ -1,7 +1,4 @@
-import { AsyncStorage } from "react-native";
 import {
-    DECKS_KEY,
-    SINGLE_DECK_KEY,
     _addDeck,
     _addCard,
     _initDummyData,

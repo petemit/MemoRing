@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Animated, Text, View } from "react-native";
-import { DrawerLayoutAndroid } from "react-native-gesture-handler";
+import { Animated} from "react-native";
 
 // This FadeView is inspired by react-native's animation documentation
-class FadeView extends React.Component {
+class FadeView extends Component {
     state = {
         fadeState: new Animated.Value(1),
         lastFadingValue: false

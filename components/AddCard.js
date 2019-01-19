@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 import { Header } from "react-navigation";
 import { handleAddQuestion } from "./../actions/index";
 import { KeyboardAvoidingView } from "react-native";

@@ -3,17 +3,13 @@ import {
     View,
     FlatList,
     TouchableOpacity,
-    StyleSheet,
-    Animated,
     InteractionManager
 } from "react-native";
 import { handleFetchDecks, receiveDecks } from "../actions";
 import styled from "styled-components/native";
 import { connect } from "react-redux";
 import DeckCard from "./DeckCard";
-import { initDummyData } from "../utils/api";
 import TextButton from "./TextButton";
-import { primary } from "../utils/colors";
 import FadeView from "./FadeView";
 
 class DeckDashboard extends Component {

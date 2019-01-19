@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View } from "react-native";
 import { connect } from "react-redux";
 import styled from "styled-components/native";
-import { offBlack, offWhite, black } from "../utils/colors";
+import { offWhite, black } from "../utils/colors";
 import { Text, StyleSheet } from "react-native";
 import TextButton from "./TextButton";
 import {
@@ -71,8 +71,6 @@ class Quiz extends Component {
             };
         });
 
-        console.log(this.state.placeInQuiz);
-        console.log(this.state.correctAnswers);
     };
 
     render() {

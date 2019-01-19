@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, KeyboardAvoidingView } from "react-native";
+import { Text, KeyboardAvoidingView } from "react-native";
 import InputWithTitle from "./InputWithTitle";
 import { Header } from "react-navigation";
 import { Component } from "react";
