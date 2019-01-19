@@ -106,44 +106,49 @@ let dummyCards = {
                 answer: "always!"
             }
         ]
-    },
-    
+    }
 };
 
 export function _initDummyData() {
-  //  Object.values(dummyCards).map(deck => _addDeck(deck, deck.title))
-    
+    //  Object.values(dummyCards).map(deck => _addDeck(deck, deck.title))
 }
 
 export function _addDeck(newDeck, key) {
-    return AsyncStorage.mergeItem(DECKS_KEY, JSON.stringify({
-        [key]: newDeck,
-    }))
+    return AsyncStorage.mergeItem(
+        DECKS_KEY,
+        JSON.stringify({
+            [key]: newDeck
+        })
+    );
 }
 
 export function _createDeck(newDeck) {
-    return AsyncStorage.mergeItem(DECKS_KEY, JSON.stringify({
-        [newDeck]: {
-            title: newDeck,
-            cards: [], 
-        },
-    }))
+    return AsyncStorage.mergeItem(
+        DECKS_KEY,
+        JSON.stringify({
+            [newDeck]: {
+                title: newDeck,
+                cards: []
+            }
+        })
+    );
 }
 
 export function _addCard(deckId, newCard) {
     return AsyncStorage.getItem(DECKS_KEY).then(decks => {
-        const cards = JSON.parse(decks)[deckId].cards
-        cards.push(newCard)
-         AsyncStorage.mergeItem(DECKS_KEY, JSON.stringify({
-            [deckId]: {
-                cards: cards
-            }
-        }) )
-    })
-    
+        const cards = JSON.parse(decks)[deckId].cards;
+        cards.push(newCard);
+        AsyncStorage.mergeItem(
+            DECKS_KEY,
+            JSON.stringify({
+                [deckId]: {
+                    cards: cards
+                }
+            })
+        );
+    });
 }
 
 export function _getDecks() {
-    return AsyncStorage.getItem(DECKS_KEY)
-    .then(result => JSON.parse(result))
+    return AsyncStorage.getItem(DECKS_KEY).then(result => JSON.parse(result));
 }

@@ -5,12 +5,25 @@ import styled from "styled-components/native";
 import { offBlack, offWhite, black } from "../utils/colors";
 import { Text, StyleSheet } from "react-native";
 import TextButton from "./TextButton";
+import {
+    clearAllNotifications,
+    setReminderNotification
+} from "./../utils/helpers";
 
 const ANSWER_VIEW = "ANSWER_VIEW";
 const QUESTION_VIEW = "QUESTION_VIEW";
 const SUMMARY_VIEW = "SUMMARY_VIEW";
 
 class Quiz extends Component {
+    /*
+     * We are just going to assume that if the user gets to the Quiz component
+     * t hat just by the mere act of opening the Quiz they have done some study
+     * and thus we will not bother them with a notification
+     */
+    componentDidMount() {
+        clearAllNotifications().then(setReminderNotification);
+    }
+
     static navigationOptions = ({ navigation }) => {
         return {
             title: `${navigation.getParam("deckKey", {})} Quiz`
@@ -113,14 +126,32 @@ class Quiz extends Component {
                                 </MediumText>
                             </Card>
                         ),
-                        SUMMARY_VIEW: <Card>
-                        <MediumText style={{textAlign: "center", fontSize: 22}}>
-                                Your Score: {((correctAnswers/deck.cards.length) * 100).toFixed(2)}%
-                            </MediumText>
-                            <MediumText style={{textAlign: "center", fontSize: 22}}>
-                                You got {correctAnswers} out of {deck.cards.length} correct!
-                            </MediumText>
-                        </Card>
+                        SUMMARY_VIEW: (
+                            <Card>
+                                <MediumText
+                                    style={{
+                                        textAlign: "center",
+                                        fontSize: 22
+                                    }}
+                                >
+                                    Your Score:{" "}
+                                    {(
+                                        (correctAnswers / deck.cards.length) *
+                                        100
+                                    ).toFixed(2)}
+                                    %
+                                </MediumText>
+                                <MediumText
+                                    style={{
+                                        textAlign: "center",
+                                        fontSize: 22
+                                    }}
+                                >
+                                    You got {correctAnswers} out of{" "}
+                                    {deck.cards.length} correct!
+                                </MediumText>
+                            </Card>
+                        )
                     }[viewType]
                 }
 
@@ -134,7 +165,14 @@ class Quiz extends Component {
                             maxHeight: 20,
                             marginTop: 10,
                             marginBottom: 10,
-                            elevation: 3
+                            elevation: 3,
+                            shadowColor: "rgba(0, 0,, 0, 0.24)",
+                            shadowOffset: {
+                                width: 0,
+                                height: 3
+                            },
+                            shadowRadius: 6,
+                            shadowOpacity: 1
                         }}
                     />
                 )}

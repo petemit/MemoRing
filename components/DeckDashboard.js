@@ -3,42 +3,49 @@ import {
     View,
     FlatList,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    Animated,
+    InteractionManager
 } from "react-native";
 import { handleFetchDecks, receiveDecks } from "../actions";
 import styled from "styled-components/native";
 import { connect } from "react-redux";
 import DeckCard from "./DeckCard";
 import { initDummyData } from "../utils/api";
-import TextButton from './TextButton';
+import TextButton from "./TextButton";
 import { primary } from "../utils/colors";
-
-const styles = StyleSheet.create({
-    headerText: {
-        fontSize: 20,
-        padding: 20,
-        fontWeight: "bold"
-    }
-});
+import FadeView from "./FadeView";
 
 class DeckDashboard extends Component {
+    state = {
+        fading: false,
+        fadingIn: false,
+        focusedDeck: ""
+    };
     static navigationOptions = ({ navigation }) => {
         return {
             title: "Decks",
             headerRight: (
                 <TextButton
                     onPress={() => navigation.navigate("AddDeck")}
-                    input = "ADD NEW DECK"
-                    style = {{padding: 20, marginRight: 5, height: 40}}
+                    input="ADD NEW DECK"
+                    style={{ padding: 20, marginRight: 5, height: 40 }}
                 />
-                    
-                    
             )
         };
     };
+
+    didBlurSubscription = this.props.navigation.addListener("didBlur", () => {
+        this.setState({ fading: false });
+    });
+
+    componentWillUnmount() {
+        didBlurSubscription.remove();
+    }
     componentDidMount() {
-        //TODO remove
-        initDummyData();
+        this.setState({
+            fading: false
+        });
         this.props.dispatch(handleFetchDecks());
     }
 
@@ -49,28 +56,53 @@ class DeckDashboard extends Component {
     render() {
         return (
             <Container>
-                {this.props.state !== undefined && Object.values(this.props.state).length > 0 ? (
+                {this.props.state !== undefined &&
+                Object.values(this.props.state).length > 0 ? (
                     <FlatList
-                        data={Object.values(this.props.state).sort((a,b) => {
-                            return a.title.localeCompare(b.title)
+                        data={Object.values(this.props.state).sort((a, b) => {
+                            return a.title.localeCompare(b.title);
                         })}
                         renderItem={data => (
                             <TouchableOpacity
-                                onPress={() =>
-                                    this.props.navigation.navigate("Deck", {
-                                        deckKey: data.item.title
-                                    })
-                                }
+                                onPress={() => {
+                                    this.setState({
+                                        fading: true,
+                                        focusedDeck: data.item.title
+                                    });
+
+                                    InteractionManager.runAfterInteractions(
+                                        () => {
+                                            this.props.navigation.navigate(
+                                                "Deck",
+                                                {
+                                                    deckKey: data.item.title
+                                                }
+                                            );
+                                        }
+                                    );
+                                }}
                             >
-                                <DeckCard deck={data.item} />
+                                <FadeView
+                                    fading={
+                                        data.item.title !==
+                                        this.state.focusedDeck
+                                            ? this.state.fading
+                                            : false
+                                    }
+                                    fadingIn={this.state.fadingIn}
+                                >
+                                    <DeckCard deck={data.item} />
+                                </FadeView>
                             </TouchableOpacity>
                         )}
                         keyExtractor={(deck, index) => deck.title}
                     />
                 ) : (
                     <View>
-                    <MediumText>No Decks Created... Tap the Add New Deck button!</MediumText> 
-                    <MediumText> </MediumText>
+                        <MediumText>
+                            No Decks Created... Tap the Add New Deck button!
+                        </MediumText>
+                        <MediumText> </MediumText>
                     </View>
                 )}
             </Container>
@@ -84,7 +116,7 @@ const MediumText = styled.Text`
     text-align: center;
     width: 300px;
     margin-top: 100px;
-`
+`;
 
 const Container = styled.View`
     flex: 1;

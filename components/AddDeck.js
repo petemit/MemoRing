@@ -42,18 +42,16 @@ class AddDeck extends Component {
                     input="CREATE"
                     enabled={uniqueCheck}
                     onPress={() => {
-                        
-                         this.props.handleAddDeck(this.state.deckTitle)
-                         this.props.navigation.goBack();}
-                    }
+                        this.props.handleAddDeck(this.state.deckTitle);
+                        this.props.navigation.goBack();
+                    }}
                     style={{
                         padding: 20,
                         maxHeight: 20,
                         backgroundColor: offWhite
                     }}
-                />    
+                />
             </KeyboardAvoidingView>
-                    
         );
     }
 }
